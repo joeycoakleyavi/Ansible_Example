@@ -19,7 +19,7 @@ avi_config:
           avi_allocated_vip: false
           auto_allocate_ip: true
           enabled: true
-          auto_allocate_floating_ip: false
+          auto_allocate_floating_ip: true
           auto_allocate_ip_type: V4_ONLY
           network_ref: '/api/network/{{ subnet_a_uuid }}#{{ subnet_a_name }}'
           subnet_uuid: '{{ subnet_a_uuid }}'
@@ -33,7 +33,7 @@ avi_config:
           avi_allocated_vip: false
           auto_allocate_ip: true
           enabled: true
-          auto_allocate_floating_ip: false
+          auto_allocate_floating_ip: true #Assign EIP
           auto_allocate_ip_type: V4_ONLY
           network_ref: '/api/network/{{ subnet_b_uuid }}#{{ subnet_b_name }}'
           subnet_uuid: '{{ subnet_b_uuid }}'

@@ -18,6 +18,10 @@ avi_config:
           name: GSLB-Leader
           username: "{{ avi_credentials.username }}"
           password: "{{ avi_credentials.password }}"
+          dns_vses:
+            - dns_vs_uuid: "{{ gslb_leader_dnsvs_uuid }}"
+              domain_names: 
+                - "{{ gslb_domain }}"
       dns_configs: 
-        - domain_name: gslb.lmig.com
+        - domain_name: "{{ gslb_domain }}"
       leader_cluster_uuid: "{{ gslb_leader_cluster_uuid }}"

@@ -13,7 +13,7 @@
     - set_fact:
         root_directory: "{{ playbook_dir }}"
 
-    - name: Gather Cluster Information
+    - name: Gather Leader Cluster Information
       avi_api_session:
         avi_credentials: "{{ avi_credentials }}"
         api_version: "{{ avi_credentials.api_version }}"
@@ -26,10 +26,23 @@
         ctl1_ip: '{{ leader_cluster_obj.obj.nodes[0].ip.addr }}'
         ctl2_ip: '{{ leader_cluster_obj.obj.nodes[1].ip.addr }}'
         ctl3_ip: '{{ leader_cluster_obj.obj.nodes[2].ip.addr }}'
+
+    - name: Gather GSLB Leader DNS VS Information
+      avi_api_session:
+        avi_credentials: "{{ avi_credentials }}"
+        api_version: "{{ avi_credentials.api_version }}"
+        http_method: get
+        path: virtualservice?name=GSLB-VS&fields=uuid
+      register: leader_gslb_dnsvs_obj
     
+    - debug: msg="{{ leader_gslb_dnsvs_obj.obj }}"
+
+    - set_fact:
+        gslb_leader_dnsvs_uuid: "{{ leader_gslb_dnsvs_obj.obj.results[0].uuid}}"
+
     - name: Deploy GSLB on Leader Node
       import_role:
         name: aviconfig
       vars:
         avi_config_file: "{{ root_directory }}/gslb/infrastructure/config.yml"
-        avi_creds_file: "{{ root_directory }}/gslb/infrastructure/leader_creds.yml"
+        avi_creds_file: "{{ root_directory }}/sites/{{ leader_site }}/creds.yml"

@@ -1,0 +1,13 @@
+---
+- name: Pull in application-specific variables 
+  include_vars: "{{ root_directory }}/gslb/applications/{{ app_name }}/vars.yml"
+
+- name: Setting up GSLB Application
+  debug: msg="{{ app_name }}"
+
+- name: Avi Application | Setup {{ app_name }}
+  import_role:
+    name: aviconfig
+  vars:
+    avi_config_file: "{{ root_directory }}/gslb/applications/{{ app_name }}/config.yml"
+    avi_creds_file: "{{ root_directory }}/sites/{{ leader_site }}/creds.yml"

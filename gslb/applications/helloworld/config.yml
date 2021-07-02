@@ -1,0 +1,13 @@
+---
+avi_config:
+  gslbservice:
+    - name: "{{ app_name }}"
+      domain_names: "{{ domain_names }}"
+      health_monitor_refs: /api/healthmonitor?name=System-GSLB-HTTP
+      is_federated: true
+      groups:
+        - algorithm: "{{ gslb_lb_alogorithm }}"
+          members: "{{ gslb_pool_members }}"
+          enabled: true
+          name: "{{ app_name }}-GSLB-Pool"
+      enabled: true

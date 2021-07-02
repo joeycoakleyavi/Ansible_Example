@@ -236,20 +236,6 @@ avi_config:
       enabled: true
       type: VS_TYPE_NORMAL
       cloud_type: CLOUD_AWS
-      # use_bridge_ip_as_vip: false
-      # flow_dist: LOAD_AWARE
-      # ign_pool_net_reach: false
-      # ssl_sess_cache_avg_size: 1024
-      # remove_listening_port_on_vs_down: false
-      # close_client_conn_on_config_update: false
-      # bulk_sync_kvcache: false
-      # advertise_down_vs: false
-      # scaleout_ecmp: false
-      # active_standby_se_tag: ACTIVE_STANDBY_SE_1
-      # flow_label_type: NO_LABEL
-      # traffic_enabled: true
-      # allow_invalid_client_cert: false
-      # vh_type: VS_TYPE_VH_SNI
       application_profile_ref: /api/applicationprofile?name=System-DNS
       network_profile_ref: /api/networkprofile?name=System-UDP-Per-Pkt
       analytics_profile_ref: /api/analyticsprofile?name=System-Analytics-Profile

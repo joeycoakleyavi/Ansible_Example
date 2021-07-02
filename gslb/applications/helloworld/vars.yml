@@ -1,0 +1,17 @@
+domain_names:
+  - helloworld.gslb.joeycoakley.com
+
+gslb_lb_alogorithm: GSLB_ALGORITHM_ROUND_ROBIN
+gslb_pool_members:
+  - ratio: 1
+    enabled: true
+    ip:
+      addr: 0.0.0.0
+      type: V4
+    fqdn: us-east-1-helloworld.joeycoakley.com
+  - ratio: 1
+    enabled: true
+    ip:
+      addr: 0.0.0.0
+      type: V4
+    fqdn: us-west-2-helloworld.joeycoakley.com

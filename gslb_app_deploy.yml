@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  connection: local
+  collections:
+    - vmware.alb
+  roles:
+    - role: avinetworks.avisdk
+  vars_files:
+    - gslb/infrastructure/vars.yml
+
+  tasks:
+    - set_fact:
+        root_directory: "{{ playbook_dir }}"
+
+#   Call the app.yml task list in order to work around not being able to loop through include_roles or import_playbooks
+    - name: Deploy GSLB Applications
+      include_tasks: "{{ root_directory }}/gslb/applications/app.yml"
+      loop: "{{ (lookup('file', '{{ root_directory }}/gslb/applications/app_registry.yml') | from_yaml)['applications'] }}"
+      loop_control:
+        loop_var: app_name

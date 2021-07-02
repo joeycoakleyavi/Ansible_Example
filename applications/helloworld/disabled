@@ -1,0 +1,330 @@
+{
+    "uri_path": "/api/virtualservice/virtualservice-88752264-5144-4b58-a72b-665bf971fe5e",
+    "data": {
+        "url": "https://us-east-1.joeycoakley.com/api/virtualservice/virtualservice-88752264-5144-4b58-a72b-665bf971fe5e#helloworld-VS",
+        "uuid": "virtualservice-88752264-5144-4b58-a72b-665bf971fe5e",
+        "name": "helloworld-VS",
+        "enabled": true,
+        "application_profile_ref": "https://us-east-1.joeycoakley.com/api/applicationprofile/applicationprofile-f46ead58-7de4-4e71-9f37-185499b09c2f#System-HTTP",
+        "se_group_ref": "https://us-east-1.joeycoakley.com/api/serviceenginegroup/serviceenginegroup-332c652a-0757-4f04-8a84-02c0c7dc7355#Default-Group",
+        "network_security_policy_ref": "https://us-east-1.joeycoakley.com/api/networksecuritypolicy/networksecuritypolicy-4896e4bd-9833-48c6-afce-3d1e04b4862e#vs-helloworld-VS-AWS-ns",
+        "vrf_context_ref": "https://us-east-1.joeycoakley.com/api/vrfcontext/vrfcontext-8cff22fb-8f34-48e8-a96b-7792aba891df#global",
+        "analytics_profile_ref": "https://us-east-1.joeycoakley.com/api/analyticsprofile/analyticsprofile-22669f58-e196-46ff-a5cc-ea5c1bda3799#System-Analytics-Profile",
+        "tenant_ref": "https://us-east-1.joeycoakley.com/api/tenant/admin#admin",
+        "cloud_ref": "https://us-east-1.joeycoakley.com/api/cloud/cloud-c47e4066-d355-452d-8aab-f1c20ac80a13#AWS",
+        "vsvip_ref": "https://us-east-1.joeycoakley.com/api/vsvip/vsvip-11e9d74f-d936-400b-90cb-1b9514123bf1#vsvip-helloworld-AWS-Cloud",
+        "_last_modified": "1625254908470418",
+        "services": [
+            {
+                "port": 80,
+                "enable_ssl": false,
+                "port_range_end": 80,
+                "enable_http2": false
+            }
+        ],
+        "http_policies": [
+            {
+                "http_policy_set_ref_data": {
+                    "uuid": "httppolicyset-0f15fd3d-bd11-4145-9ef4-6b774c048ece",
+                    "name": "helloworld-VS-AWS-HTTP-Policy-Set-0",
+                    "is_internal_policy": false,
+                    "url": "https://us-east-1.joeycoakley.com/api/httppolicyset/httppolicyset-0f15fd3d-bd11-4145-9ef4-6b774c048ece#helloworld-VS-AWS-HTTP-Policy-Set-0",
+                    "tenant_ref": "https://us-east-1.joeycoakley.com/api/tenant/admin#admin",
+                    "index": 11,
+                    "http_request_policy": {
+                        "rules": []
+                    },
+                    "http_response_policy": {
+                        "rules": []
+                    },
+                    "http_security_policy": {
+                        "rules": []
+                    }
+                },
+                "index": 11
+            }
+        ],
+        "analytics_policy": {
+            "full_client_logs": {
+                "enabled": false,
+                "duration": 30,
+                "throttle": 10
+            },
+            "client_insights": "NO_INSIGHTS",
+            "all_headers": false,
+            "metrics_realtime_update": {
+                "enabled": false,
+                "duration": 30
+            },
+            "udf_log_throttle": 10,
+            "significant_log_throttle": 10,
+            "learning_log_policy": {
+                "enabled": false
+            },
+            "client_insights_sampling": {}
+        },
+        "enable_autogw": true,
+        "weight": 1,
+        "delay_fairness": false,
+        "max_cps_per_client": 0,
+        "limit_doser": false,
+        "type": "VS_TYPE_NORMAL",
+        "cloud_type": "CLOUD_AWS",
+        "use_bridge_ip_as_vip": false,
+        "flow_dist": "LOAD_AWARE",
+        "ign_pool_net_reach": false,
+        "ssl_sess_cache_avg_size": 1024,
+        "remove_listening_port_on_vs_down": false,
+        "close_client_conn_on_config_update": false,
+        "bulk_sync_kvcache": false,
+        "advertise_down_vs": false,
+        "scaleout_ecmp": false,
+        "active_standby_se_tag": "ACTIVE_STANDBY_SE_1",
+        "flow_label_type": "NO_LABEL",
+        "use_vip_as_snat": false,
+        "traffic_enabled": true,
+        "allow_invalid_client_cert": false,
+        "vh_type": "VS_TYPE_VH_SNI",
+        "network_profile_ref": "https://us-east-1.joeycoakley.com/api/networkprofile/networkprofile-dadaaf5e-78a5-409b-ad15-7d532bbb4343#System-TCP-Proxy",
+        "pool_ref": "https://us-east-1.joeycoakley.com/api/pool/pool-ee3fa4f1-4bd0-461b-bb08-d05e2b7c0bc6#helloworld-Pool",
+        "marked_for_delete": false,
+        "redis_db": 14,
+        "redis_port": 5025,
+        "self_se_election": false,
+        "tls_ticket_key": [
+            {
+                "aes_key": "M0KV0VFzAKoce8iH0i8YKQ==",
+                "hmac_key": "sxrlP+7oLJk+wwyaJBwhkw==",
+                "name": "3672c4be-8cc2-4169-8a2e-9b225e928aa2"
+            },
+            {
+                "aes_key": "3uePxCZvzzeDiCFLEtkeyQ==",
+                "hmac_key": "JPIbqSbcLNRsr8czTXd9Jg==",
+                "name": "82317ce0-e078-40bd-9f7d-4bb0cc3c5517"
+            },
+            {
+                "aes_key": "mSNAxgtEYeu/cl4IzxSItQ==",
+                "hmac_key": "GVlGDAGWfvy9R8o9R1OZCA==",
+                "name": "62c06e0d-13f0-46b6-864b-8e30f186c153"
+            }
+        ],
+        "version": "16",
+        "vip_runtime": [
+            {
+                "first_se_assigned_time": {
+                    "secs": "1625004323",
+                    "usecs": "878600"
+                },
+                "num_additional_se": 0,
+                "requested_resource": {
+                    "num_se": 1,
+                    "num_standby_se": 0
+                },
+                "se_list": [
+                    {
+                        "admin_down_requested": false,
+                        "attach_ip_status": "Programming Network reachability to the Virtual Service IP in the Cloud",
+                        "attach_ip_success": true,
+                        "delete_in_progress": false,
+                        "incarnation": "2021-06-29 22:05:23.878759",
+                        "is_portchannel": false,
+                        "is_primary": true,
+                        "is_standby": false,
+                        "memory": 3724,
+                        "mgmt_ip": {
+                            "addr": "10.20.200.88",
+                            "type": "V4"
+                        },
+                        "scaleout_in_progress": false,
+                        "se_ref": "https://us-east-1.joeycoakley.com/api/serviceengine/se-i-0d34d71f7f1e5348b#Avi-se-qrbrz",
+                        "sec_idx": 0,
+                        "vcpus": 2,
+                        "vip6_subnet_mask": 128,
+                        "vip_intf_list": [
+                            {
+                                "is_portchannel": false,
+                                "vip_intf_ip": {
+                                    "addr": "10.20.200.143",
+                                    "type": "V4"
+                                },
+                                "vip_intf_mac": "02:a3:8d:17:48:b7",
+                                "vlan_id": 0
+                            }
+                        ],
+                        "vip_intf_mac": "02:a3:8d:17:48:b7",
+                        "vip_subnet_mask": 32,
+                        "vlan_id": 0,
+                        "vnic": [
+                            {
+                                "mac": "02:a3:8d:17:48:b7",
+                                "type": "VNIC_TYPE_FE"
+                            },
+                            {
+                                "mac": "02:a3:8d:17:48:b7",
+                                "type": "VNIC_TYPE_BE"
+                            }
+                        ]
+                    }
+                ],
+                "vip_id": "1"
+            },
+            {
+                "first_se_assigned_time": {
+                    "secs": "1625004323",
+                    "usecs": "861661"
+                },
+                "num_additional_se": 0,
+                "requested_resource": {
+                    "num_se": 1,
+                    "num_standby_se": 0
+                },
+                "se_list": [
+                    {
+                        "admin_down_requested": false,
+                        "attach_ip_status": "Programming Network reachability to the Virtual Service IP in the Cloud",
+                        "attach_ip_success": true,
+                        "delete_in_progress": false,
+                        "incarnation": "2021-06-29 22:05:23.862101",
+                        "is_portchannel": false,
+                        "is_primary": true,
+                        "is_standby": false,
+                        "memory": 3696,
+                        "mgmt_ip": {
+                            "addr": "10.20.201.39",
+                            "type": "V4"
+                        },
+                        "scaleout_in_progress": false,
+                        "se_ref": "https://us-east-1.joeycoakley.com/api/serviceengine/se-i-052e17736770368d3#Avi-se-azoyd",
+                        "sec_idx": 0,
+                        "vcpus": 2,
+                        "vip6_subnet_mask": 128,
+                        "vip_intf_list": [
+                            {
+                                "is_portchannel": false,
+                                "vip_intf_ip": {
+                                    "addr": "10.20.201.198",
+                                    "type": "V4"
+                                },
+                                "vip_intf_mac": "12:92:e0:30:f4:bf",
+                                "vlan_id": 0
+                            }
+                        ],
+                        "vip_intf_mac": "12:92:e0:30:f4:bf",
+                        "vip_subnet_mask": 32,
+                        "vlan_id": 0,
+                        "vnic": [
+                            {
+                                "mac": "12:92:e0:30:f4:bf",
+                                "type": "VNIC_TYPE_FE"
+                            },
+                            {
+                                "mac": "12:92:e0:30:f4:bf",
+                                "type": "VNIC_TYPE_BE"
+                            }
+                        ]
+                    }
+                ],
+                "vip_id": "2"
+            }
+        ],
+        "network_security_policy_ref_data": {
+            "uuid": "networksecuritypolicy-4896e4bd-9833-48c6-afce-3d1e04b4862e",
+            "name": "vs-helloworld-VS-AWS-ns",
+            "url": "https://us-east-1.joeycoakley.com/api/networksecuritypolicy/networksecuritypolicy-4896e4bd-9833-48c6-afce-3d1e04b4862e#vs-helloworld-VS-AWS-ns",
+            "tenant_ref": "https://us-east-1.joeycoakley.com/api/tenant/admin#admin",
+            "rules": []
+        },
+        "vsvip_ref_data": {
+            "east_west_placement": false,
+            "cloud_ref": "https://us-east-1.joeycoakley.com/api/cloud/cloud-c47e4066-d355-452d-8aab-f1c20ac80a13#AWS",
+            "uuid": "vsvip-11e9d74f-d936-400b-90cb-1b9514123bf1",
+            "name": "vsvip-helloworld-AWS-Cloud",
+            "vip": [
+                {
+                    "enabled": true,
+                    "auto_allocate_ip": true,
+                    "auto_allocate_floating_ip": false,
+                    "avi_allocated_vip": false,
+                    "avi_allocated_fip": true,
+                    "auto_allocate_ip_type": "V4_ONLY",
+                    "prefix_length": 32,
+                    "vip_id": "1",
+                    "ip_address": {
+                        "addr": "10.20.200.136",
+                        "type": "V4"
+                    },
+                    "subnet_uuid": "subnet-05aa70fce35aee084",
+                    "subnet": {
+                        "ip_addr": {
+                            "addr": "10.20.200.0",
+                            "type": "V4"
+                        },
+                        "mask": 24
+                    },
+                    "availability_zone": "us-east-1a",
+                    "ipam_network_subnet": {
+                        "subnet": {
+                            "ip_addr": {
+                                "addr": "10.20.200.0",
+                                "type": "V4"
+                            },
+                            "mask": 24
+                        },
+                        "subnet_uuid": "subnet-05aa70fce35aee084",
+                        "network_ref": "https://us-east-1.joeycoakley.com/api/network/subnet-05aa70fce35aee084"
+                    },
+                    "network_ref": "https://us-east-1.joeycoakley.com/api/network/subnet-05aa70fce35aee084#fse-MSB-az-east-1a - 10.20.200.0/24",
+                    "placement_networks": []
+                },
+                {
+                    "enabled": true,
+                    "auto_allocate_ip": true,
+                    "auto_allocate_floating_ip": false,
+                    "avi_allocated_vip": false,
+                    "avi_allocated_fip": false,
+                    "auto_allocate_ip_type": "V4_ONLY",
+                    "prefix_length": 32,
+                    "vip_id": "2",
+                    "ip_address": {
+                        "addr": "10.20.201.156",
+                        "type": "V4"
+                    },
+                    "subnet_uuid": "subnet-0a26c21a30836589d",
+                    "subnet": {
+                        "ip_addr": {
+                            "addr": "10.20.201.0",
+                            "type": "V4"
+                        },
+                        "mask": 24
+                    },
+                    "availability_zone": "us-east-1b",
+                    "ipam_network_subnet": {
+                        "subnet": {
+                            "ip_addr": {
+                                "addr": "10.20.201.0",
+                                "type": "V4"
+                            },
+                            "mask": 24
+                        },
+                        "subnet_uuid": "subnet-0a26c21a30836589d",
+                        "network_ref": "https://us-east-1.joeycoakley.com/api/network/subnet-0a26c21a30836589d"
+                    },
+                    "network_ref": "https://us-east-1.joeycoakley.com/api/network/subnet-0a26c21a30836589d#fse-MSB-az-east-1b - 10.20.201.0/24",
+                    "placement_networks": []
+                }
+            ],
+            "dns_info": [
+                {
+                    "type": "DNS_RECORD_A",
+                    "num_records_in_response": 1,
+                    "algorithm": "DNS_RECORD_RESPONSE_CONSISTENT_HASH",
+                    "fqdn": "us-east-1-helloworld.joeycoakley.com"
+                }
+            ],
+            "url": "https://us-east-1.joeycoakley.com/api/vsvip/vsvip-11e9d74f-d936-400b-90cb-1b9514123bf1#vsvip-helloworld-AWS-Cloud",
+            "vrf_context_ref": "https://us-east-1.joeycoakley.com/api/vrfcontext/vrfcontext-8cff22fb-8f34-48e8-a96b-7792aba891df#global",
+            "tenant_ref": "https://us-east-1.joeycoakley.com/api/tenant/admin#admin"
+        },
+        "vs_datascripts": []
+    }
+}
