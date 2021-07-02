@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+  roles:
+    - role: avinetworks.avisdk
+  tasks:
+    - name: Setting up Site
+      debug: msg="{{ site }}"
+
+    - set_fact:
+        root_directory: "{{ playbook_dir }}"
+
+    - name: Pull in Site Variables
+      include_vars: "{{ root_directory }}/sites/{{ site }}/site_vars.yml"
+
+    - name: Avi Site | Setup us-east-1
+      import_role:
+        name: avinetworks.aviconfig
+      vars:
+        avi_config_file: "{{ root_directory }}/sites/{{site}}/site_config.yml"
+        avi_creds_file: "{{ root_directory }}/sites/{{ site }}/creds.yml"

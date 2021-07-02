@@ -1,0 +1,57 @@
+---
+avi_config:
+  pool:
+    - name: "{{ app_name }}-Pool"
+      lb_algorithm: LB_ALGORITHM_ROUND_ROBIN
+      health_monitor_refs: '/api/healthmonitor?name=System-HTTP'
+      external_autoscale_groups:
+        - "{{ asg_name }}"
+      cloud_ref: '/api/cloud?name=AWS'
+
+  vsvip:
+    - name: "vsvip-{{ app_name }}-AWS-Cloud"
+      tenant_ref: '/api/tenant?name=admin'
+      cloud_ref: '/api/cloud?name=AWS'
+      state: present
+      vip:
+        - vip_id: "1"
+          avi_allocated_fip: false
+          avi_allocated_vip: false
+          auto_allocate_ip: true
+          enabled: true
+          auto_allocate_floating_ip: false
+          auto_allocate_ip_type: V4_ONLY
+          network_ref: '/api/network/{{ subnet_a_uuid }}#{{ subnet_a_name }}'
+          subnet_uuid: '{{ subnet_a_uuid }}'
+          subnet:
+            ip_addr:
+              addr: "{{ subnet_a_cidr | ipaddr('network') }}"
+              type: "V4" 
+            mask: "{{ subnet_a_cidr | ipaddr('prefix') | int }}"
+        - vip_id: "2"
+          avi_allocated_fip: false
+          avi_allocated_vip: false
+          auto_allocate_ip: true
+          enabled: true
+          auto_allocate_floating_ip: false
+          auto_allocate_ip_type: V4_ONLY
+          network_ref: '/api/network/{{ subnet_b_uuid }}#{{ subnet_b_name }}'
+          subnet_uuid: '{{ subnet_b_uuid }}'
+          subnet:
+            ip_addr:
+              addr: "{{ subnet_b_cidr | ipaddr('network') }}"
+              type: "V4" 
+            mask: "{{ subnet_b_cidr | ipaddr('prefix') | int }}"
+      dns_info:
+        - type: DNS_RECORD_A
+          num_records_in_response: 1
+          algorithm: DNS_RECORD_RESPONSE_CONSISTENT_HASH
+          fqdn: '{{ app_fqdn }}'
+        
+  virtualservice:
+    - name: "{{ app_name }}-VS"
+      services:
+        - port: 80
+      pool_ref: '/api/pool?name={{ app_name }}-Pool'
+      vsvip_ref: '/api/vsvip?name=vsvip-{{ app_name }}-AWS-Cloud'
+      cloud_ref: '/api/cloud?name=AWS'

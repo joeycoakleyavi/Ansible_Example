@@ -1,0 +1,5 @@
+avi_credentials:
+  controller: "{{ ansible_host }}"
+  username: admin
+  password: Avi123!@#
+  api_version: 20.1.4

@@ -1,0 +1,265 @@
+avi_config:
+  authprofile:
+    - name: "Azure AD"
+      type: "AUTH_PROFILE_SAML"
+      saml:
+        idp:
+          metadata: "{{ lookup('file', '{{ root_directory }}/sites/{{ site }}/idp_metadata.xml') }}"
+        sp:
+          fqdn: us-west-2.joeycoakley.com
+          saml_entity_type: "AUTH_SAML_DNS_FQDN"
+            
+  role:
+    - name: RO_Role
+      privileges:
+        - resource: PERMISSION_VIRTUALSERVICE
+          type: READ_ACCESS
+        - resource: PERMISSION_POOL
+          type: NO_ACCESS
+        - resource: PERMISSION_POOLGROUP
+          type: NO_ACCESS
+        - resource: PERMISSION_HTTPPOLICYSET
+          type: READ_ACCESS
+        - resource: PERMISSION_NETWORKSECURITYPOLICY
+          type: READ_ACCESS
+        - resource: PERMISSION_AUTOSCALE
+          type: READ_ACCESS
+        - resource: PERMISSION_DNSPOLICY
+          type: READ_ACCESS
+        - resource: PERMISSION_NETWORKPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_APPLICATIONPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_APPLICATIONPERSISTENCEPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_HEALTHMONITOR
+          type: READ_ACCESS
+        - resource: PERMISSION_ANALYTICSPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_IPAMDNSPROVIDERPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_CUSTOMIPAMDNSPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_TRAFFICCLONEPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_ICAP
+          type: READ_ACCESS
+        - resource: PERMISSION_IPADDRGROUP
+          type: READ_ACCESS
+        - resource: PERMISSION_STRINGGROUP
+          type: READ_ACCESS
+        - resource: PERMISSION_VSDATASCRIPTSET
+          type: READ_ACCESS
+        - resource: PERMISSION_PROTOCOLPARSER
+          type: READ_ACCESS
+        - resource: PERMISSION_SSLPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_AUTHPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_PINGACCESSAGENT
+          type: READ_ACCESS
+        - resource: PERMISSION_PKIPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_SSLKEYANDCERTIFICATE
+          type: READ_ACCESS
+        - resource: PERMISSION_CERTIFICATEMANAGEMENTPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_HARDWARESECURITYMODULEGROUP
+          type: READ_ACCESS
+        - resource: PERMISSION_SSOPOLICY
+          type: READ_ACCESS
+        - resource: PERMISSION_NATPOLICY
+          type: READ_ACCESS
+        - resource: PERMISSION_WAFPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_WAFPOLICY
+          type: READ_ACCESS
+        - resource: PERMISSION_WAFPOLICYPSMGROUP
+          type: READ_ACCESS
+        - resource: PERMISSION_ERRORPAGEPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_ERRORPAGEBODY
+          type: READ_ACCESS
+        - resource: PERMISSION_ALERTCONFIG
+          type: READ_ACCESS
+        - resource: PERMISSION_ALERT
+          type: READ_ACCESS
+        - resource: PERMISSION_ACTIONGROUPCONFIG
+          type: READ_ACCESS
+        - resource: PERMISSION_ALERTSYSLOGCONFIG
+          type: READ_ACCESS
+        - resource: PERMISSION_ALERTEMAILCONFIG
+          type: READ_ACCESS
+        - resource: PERMISSION_SNMPTRAPPROFILE
+          type: READ_ACCESS
+        - resource: PERMISSION_TRAFFIC_CAPTURE
+          type: READ_ACCESS
+        - resource: PERMISSION_CLOUD
+          type: READ_ACCESS
+        - resource: PERMISSION_SERVICEENGINE
+          type: READ_ACCESS
+        - resource: PERMISSION_SERVICEENGINEGROUP
+          type: READ_ACCESS
+        - resource: PERMISSION_NETWORK
+          type: READ_ACCESS
+        - resource: PERMISSION_VRFCONTEXT
+          type: READ_ACCESS
+        - resource: PERMISSION_USER_CREDENTIAL
+          type: READ_ACCESS
+        - resource: PERMISSION_SYSTEMCONFIGURATION
+          type: READ_ACCESS
+        - resource: PERMISSION_CONTROLLER
+          type: READ_ACCESS
+        - resource: PERMISSION_REBOOT
+          type: READ_ACCESS
+        - resource: PERMISSION_UPGRADE
+          type: READ_ACCESS
+        - resource: PERMISSION_TECHSUPPORT
+          type: READ_ACCESS
+        - resource: PERMISSION_INTERNAL
+          type: READ_ACCESS
+        - resource: PERMISSION_CONTROLLERSITE
+          type: READ_ACCESS
+        - resource: PERMISSION_IMAGE
+          type: READ_ACCESS
+        - resource: PERMISSION_USER
+          type: READ_ACCESS
+        - resource: PERMISSION_ROLE
+          type: READ_ACCESS
+        - resource: PERMISSION_TENANT
+          type: READ_ACCESS
+        - resource: PERMISSION_GSLB
+          type: READ_ACCESS
+        - resource: PERMISSION_GSLBSERVICE
+          type: READ_ACCESS
+        - resource: PERMISSION_GSLBGEODBPROFILE
+          type: READ_ACCESS
+
+  systemconfiguration:
+    - tenant: admin
+      state: present
+      email_configuration:
+        smtp_type: SMTP_NONE
+      global_tenant_config:
+        se_in_provider_context: true
+        tenant_acccess_to_provider_se: true
+        tenant_vrf: false
+      ntp_configuration: "{{ ntp_config }}"
+      dns_configuration: "{{ dns_config }}"
+      portal_configuration:
+        allow_basic_authentication: true
+        disable_remote_cli_shell: false
+        enable_clickjacking_protection: true
+        enable_http: true
+        enable_https: true
+        password_strength_check: true
+        redirect_to_https: true
+        sslprofile_ref: "/api/sslprofile?name=System-Standard-Portal"
+        use_uuid_from_input: false
+      admin_auth_configuration:
+        auth_profile_ref: "/api/authprofile/?name=Azure AD"
+        mapping_rules:
+        - index: 1
+          group_match:
+            groups:
+            - avi-admins
+            criteria: AUTH_MATCH_CONTAINS
+          is_superuser: true
+          role_refs:
+            - "/api/role/?name=System-Admin"
+        - index: 2
+          group_match:
+            groups:
+            - avi-read
+            criteria: AUTH_MATCH_CONTAINS
+          is_superuser: false
+          assign_role: ASSIGN_FROM_SELECT_LIST
+          role_refs:
+            - "/api/role/?name=RO_Role"
+        allow_local_user_login: true
+      welcome_workflow_complete: true
+
+  cloud:
+    - name: AWS
+      vtype: CLOUD_AWS
+      aws_configuration:
+        use_iam_roles: true
+        route53_integration: true
+        region: "{{ aws_region }}"
+        vpc_id: "{{ vpc_id }}"
+        zones: "{{ management_subnets }}"
+
+  vsvip:
+    - name: vsvip-GSLB-VS-AWS
+      cloud_ref: '/api/cloud?name=AWS'
+      vip:
+        - enabled: true
+          auto_allocate_ip: true
+          auto_allocate_floating_ip: true
+          avi_allocated_vip: false
+          avi_allocated_fip: false
+          auto_allocate_ip_type: V4_ONLY
+          prefix_length: 32
+          vip_id: GSLB1
+          network_ref: 'api/network/{{ subnet_a_uuid }}#{{ subnet_a_name }}'
+          subnet_uuid: '{{ subnet_a_uuid }}'
+          placement_networks: []
+          subnet:
+            ip_addr:
+              addr: "{{ subnet_a_cidr | ipaddr('network') }}"
+              type: V4
+            mask: "{{ subnet_a_cidr | ipaddr('prefix') | int }}"
+        - enabled: true
+          auto_allocate_ip: true
+          auto_allocate_floating_ip: true
+          avi_allocated_vip: false
+          avi_allocated_fip: false
+          auto_allocate_ip_type: V4_ONLY
+          prefix_length: 32
+          vip_id: GSLB2
+          network_ref: 'api/network/{{ subnet_b_uuid }}#{{ subnet_b_name }}'
+          subnet_uuid: '{{ subnet_b_uuid }}'
+          subnet:
+            ip_addr:
+              addr: "{{ subnet_b_cidr | ipaddr('network') }}"
+              type: V4
+            mask: "{{ subnet_b_cidr | ipaddr('prefix') | int }}"
+          placement_networks: []
+      dns_info:
+        - type: DNS_RECORD_A
+          num_records_in_response: 1
+          algorithm: DNS_RECORD_RESPONSE_CONSISTENT_HASH
+          fqdn: '{{ gslb_dns_fqdn }}'
+
+  virtualservice:
+    - name: GSLB-VS
+      enabled: true
+      type: VS_TYPE_NORMAL
+      cloud_type: CLOUD_AWS
+      # use_bridge_ip_as_vip: false
+      # flow_dist: LOAD_AWARE
+      # ign_pool_net_reach: false
+      # ssl_sess_cache_avg_size: 1024
+      # remove_listening_port_on_vs_down: false
+      # close_client_conn_on_config_update: false
+      # bulk_sync_kvcache: false
+      # advertise_down_vs: false
+      # scaleout_ecmp: false
+      # active_standby_se_tag: ACTIVE_STANDBY_SE_1
+      # flow_label_type: NO_LABEL
+      # traffic_enabled: true
+      # allow_invalid_client_cert: false
+      # vh_type: VS_TYPE_VH_SNI
+      application_profile_ref: /api/applicationprofile?name=System-DNS
+      network_profile_ref: /api/networkprofile?name=System-UDP-Per-Pkt
+      analytics_profile_ref: /api/analyticsprofile?name=System-Analytics-Profile
+      cloud_ref: /api/cloud?name=AWS
+      vsvip_ref: /api/vsvip?name=vsvip-GSLB-VS-AWS
+      services:
+      - port: 53
+        port_range_end: 53
+        enable_ssl: false
+      - port: 53
+        port_range_end: 53
+        enable_ssl: false
+        override_network_profile_ref: /api/networkprofile?name=System-TCP-Proxy

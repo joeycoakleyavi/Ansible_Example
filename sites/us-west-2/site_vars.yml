@@ -1,0 +1,50 @@
+#AWS Management Subnet Configuration
+management_subnets:
+  - mgmt_network_uuid: subnet-0df0af24a0d210bfd
+    mgmt_network_name: fse-se-mgmt-a-64_0/24
+    availability_zone: us-west-2a
+  - mgmt_network_uuid: subnet-0f232885aacf6b020
+    mgmt_network_name: fse-se-mgmt-b-65_0/24
+    availability_zone: us-west-2b
+
+#AWS Region Configuration
+aws_region: us-west-2
+
+#AWS VPC Configuration
+vpc_id: vpc-46246520
+
+#AWS VIP Subnet Configuration
+subnet_a_name: fse-data-a-81_0/24
+subnet_a_uuid: subnet-62307d1b
+subnet_a_cidr: 10.155.81.0/24
+
+subnet_b_name: fse-data-b-82_0/24
+subnet_b_uuid: subnet-2ce68967
+subnet_b_cidr: 10.155.82.0/24
+
+#NTP Configuration
+ntp_config:
+  ntp_servers:
+    - server:
+        type: DNS
+        addr: 0.us.pool.ntp.org
+    - server:
+        type: DNS
+        addr: 1.us.pool.ntp.org
+    - server:
+        type: DNS
+        addr: 2.us.pool.ntp.org
+    - server:
+        type: DNS
+        addr: 3.us.pool.ntp.org
+
+#DNS Configuration
+dns_config:
+  server_list:
+    - addr: 8.8.8.8
+      type: V4
+    - addr: 8.8.4.4
+      type: V4
+  search_domain: lmig.com
+
+gslb_dns_fqdn: ns2.gslb.joeycoakley.com

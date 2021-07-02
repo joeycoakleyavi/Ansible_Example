@@ -1,0 +1,23 @@
+---
+avi_config:
+  gslb:
+    - name: Default
+      sites:
+        - port: 443
+          member_type: GSLB_ACTIVE_MEMBER
+          enabled: true
+          suspend_mode: false
+          cluster_uuid: "{{ gslb_leader_cluster_uuid }}"
+          ip_addresses:
+            - addr: "{{ ctl1_ip }}"
+              type: V4
+            - addr: "{{ ctl2_ip }}"
+              type: V4
+            - addr: "{{ ctl3_ip }}"
+              type: V4
+          name: GSLB-Leader
+          username: "{{ avi_credentials.username }}"
+          password: "{{ avi_credentials.password }}"
+      dns_configs: 
+        - domain_name: gslb.lmig.com
+      leader_cluster_uuid: "{{ gslb_leader_cluster_uuid }}"

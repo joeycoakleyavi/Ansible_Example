@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  connection: local
+  vars_files: 
+    - ./site_vars.yml
+    - vars/global/vars.yml
+
+  roles:
+    - role: avinetworks.avisdk
+
+  tasks:
+    - name: Setting up Site
+      debug: msg="{{ site_name }}"
+
+    - name: Avi Site | Setup us-west-2
+      import_role:
+        name: avinetworks.aviconfig
+      vars:
+        avi_config_file: "{{ site_dir }}/sites/{{site_name}}/config.yml"
+        avi_creds_file: "{{ site_dir }}/vars/creds.yml"

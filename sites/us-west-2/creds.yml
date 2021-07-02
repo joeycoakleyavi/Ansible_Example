@@ -1,0 +1,5 @@
+avi_credentials:
+  controller: 52.41.250.70
+  username: admin
+  password: Avi123!@#
+  api_version: 20.1.4

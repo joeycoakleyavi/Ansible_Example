@@ -1,0 +1,2 @@
+asg_name: Webserver-ASG-AutoScalingGroup-DVXK0J6D9H33
+app_fqdn: "{{ (site + '-') | default(omit) }}helloworld.demoavi.us"

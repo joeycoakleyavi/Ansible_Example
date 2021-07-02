@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+  collections:
+    - vmware.alb
+  roles:
+    - role: avinetworks.avisdk
+
+  tasks:
+    - set_fact:
+        root_directory: "{{ playbook_dir }}"
+
+    - name: Import Site-Specific Variables
+      include_vars: "{{ root_directory }}/sites/{{ site }}/site_vars.yml"
+
+#   Call the app.yml task list in order to work around not being able to loop through include_roles or import_playbooks
+    - name: Deploy Site Applications
+      include_tasks: "{{ root_directory }}/applications/app.yml"
+      loop: "{{ (lookup('file', '{{ root_directory }}/sites/{{ site }}/app_registry.yml') | from_yaml)['applications'] }}"
+      loop_control:
+        loop_var: app_name

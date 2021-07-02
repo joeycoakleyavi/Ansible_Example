@@ -1,0 +1,35 @@
+---
+- hosts: localhost
+  connection: local
+  collections:
+    - vmware.alb
+  roles:
+    - role: avinetworks.avisdk
+  vars_files:
+    - gslb/infrastructure/vars.yml
+    - sites/{{ leader_site }}/creds.yml
+
+  tasks:
+    - set_fact:
+        root_directory: "{{ playbook_dir }}"
+
+    - name: Gather Cluster Information
+      avi_api_session:
+        avi_credentials: "{{ avi_credentials }}"
+        api_version: "{{ avi_credentials.api_version }}"
+        http_method: get
+        path: cluster
+      register: leader_cluster_obj
+
+    - set_fact:
+        gslb_leader_cluster_uuid: '{{ leader_cluster_obj.obj.uuid }}'
+        ctl1_ip: '{{ leader_cluster_obj.obj.nodes[0].ip.addr }}'
+        ctl2_ip: '{{ leader_cluster_obj.obj.nodes[1].ip.addr }}'
+        ctl3_ip: '{{ leader_cluster_obj.obj.nodes[2].ip.addr }}'
+    
+    - name: Deploy GSLB on Leader Node
+      import_role:
+        name: aviconfig
+      vars:
+        avi_config_file: "{{ root_directory }}/gslb/infrastructure/config.yml"
+        avi_creds_file: "{{ root_directory }}/gslb/infrastructure/leader_creds.yml"
