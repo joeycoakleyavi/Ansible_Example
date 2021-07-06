@@ -7,6 +7,10 @@
     - role: avinetworks.avisdk
 
   tasks:
+    - fail:
+        msg: "This playbook requires a site to be defined. I.E. 'ansible-playbook app_deploy.yml -e site=us-east-1'"
+      when: site is not defined
+
     - set_fact:
         root_directory: "{{ playbook_dir }}"
 

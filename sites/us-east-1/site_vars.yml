@@ -22,6 +22,15 @@ subnet_b_name: fse-MSB-az-east-1a
 subnet_b_uuid: subnet-0a26c21a30836589d
 subnet_b_cidr: 10.20.201.0/24
 
+#DNS Configuration
+dns_config:
+  server_list:
+    - addr: 8.8.8.8
+      type: V4
+    - addr: 8.8.4.4
+      type: V4
+  search_domain: lmig.com
+
 #NTP Configuration
 ntp_config:
   ntp_servers:
@@ -38,13 +47,5 @@ ntp_config:
         type: DNS
         addr: 3.us.pool.ntp.org
 
-#DNS Configuration
-dns_config:
-  server_list:
-    - addr: 8.8.8.8
-      type: V4
-    - addr: 8.8.4.4
-      type: V4
-  search_domain: lmig.com
 
 gslb_dns_fqdn: ns1-gslb.joeycoakley.com

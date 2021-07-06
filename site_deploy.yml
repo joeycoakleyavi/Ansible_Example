@@ -4,6 +4,10 @@
   roles:
     - role: avinetworks.avisdk
   tasks:
+    - fail:
+        msg: "This playbook requires a site to be defined. I.E. 'ansible-playbook site_deploy.yml -e site=us-east-1'"
+      when: site is not defined
+
     - name: Setting up Site
       debug: msg="{{ site }}"
 
