@@ -197,7 +197,7 @@ vpc_id: vpc-123456
 The benefit here is that we can reuse site_config.yml elsewhere and simply change our variables to match what our configuration should be.
 
 ## Application Configuration
-Applications are defined in the `applications` folder. These are applications which Avi will be responsbile for server load balancing for. Each folder inside `applications` represents a different application which may be deployed into one or more sites. Once the application is defined, you can control which sites it will be deployed to by adding the application name to the [app_registry.yml](#app-registryyml) of the respective site.
+Applications are defined in the `applications` folder. These are applications which Avi will be responsbile for server load balancing for. Each folder inside `applications` represents a different application which may be deployed into one or more sites. Once the application is defined, you can control which sites it will be deployed to by adding the application name to the [app_registry.yml](#sites-site-name-app-registryyml) of the respective site.
 
 <img src="images/application_folder_structure.png" width="200">
 
@@ -211,7 +211,7 @@ Do not modify this file. It is called as part of the app_deploy.yml playbook.
 Contains the application's configuration in YAML. Please see section [Relationship of Avi Ansible Modules to the Avi API](#relationship-of-avi-ansible-modules-to-the-avi-api) for details on how to build the configuration.
 
 ### applications/app_name/vars.yml
-Contains application-specific variables. Usage and benefits of using variables along with examples are found in the [site variables section.](#site-varsyml)
+Contains application-specific variables. Usage and benefits of using variables along with examples are found in the [site variables section.](#sites-site-name-site-varsyml)
 
 ***NOTE***
 
@@ -242,7 +242,7 @@ avi_config:
 ```
 
 ## GSLB Infrastructure Configuration
-At the time of writing this document, any GSLB configuration must be done via the GSLB leader. The leader site is defined in the [GSLB vars file.](gslb-infrastructure-varsyml). 
+At the time of writing this document, any GSLB configuration must be done via the GSLB leader. The leader site is defined in the [GSLB vars file.](#gslb-infrastructure-varsyml) 
 
 <img src="images/gslb_infrastructure_folder_structure.png" width="200">
 
@@ -253,7 +253,7 @@ At the time of writing this document, any GSLB configuration must be done via th
 Contains the GSLB infrastructure configuration in YAML. Please see section [Relationship of Avi Ansible Modules to the Avi API](#relationship-of-avi-ansible-modules-to-the-avi-api) for details on how to build the configuration.
 
 ### gslb/infrastructure/vars.yml
-Contains GSLB Infrastructure-specific variables, including the **GSLB leader**. Usage and benefits of using variables along with examples are found in the [site variables section.](#site-varsyml)
+Contains GSLB Infrastructure-specific variables, including the **GSLB leader**. Usage and benefits of using variables along with examples are found in the [site variables section.](#sites-site-name-site-varsyml)
 
 ## GSLB Application Configuration
 Avi GSLB applications follow a similar approach to [server load balanced applications](#application-configuration), in that an application is defined and then registered in an application registry. While the registry concept is not used for a per-site, it can be used to allow an administrator to toggle which applications should or should not be deployed, although this functionality does not exist in this example.
@@ -274,4 +274,4 @@ Contains registry of GSLB applications which should be deployed.
 Contains the GSLB application configuration. Please see section [Relationship of Avi Ansible Modules to the Avi API](#relationship-of-avi-ansible-modules-to-the-avi-api) for details on how to build the configuration.
 
 ### gslb/applications/app_name/vars.yml
-Contains GSLB application-specific variables. Usage and benefits of using variables along with examples are found in the [site variables section.](#site-varsyml)
+Contains GSLB application-specific variables. Usage and benefits of using variables along with examples are found in the [site variables section.](#sites-site-name-site-varsyml)
