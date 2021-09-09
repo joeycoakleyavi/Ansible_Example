@@ -40,7 +40,7 @@ This repository is meant to provide an example framework for Ansible automation.
 This framework is tested using specific versions of Ansible and makes use of libraries which are needed for playbooks to execute successfully. When developing your own automation, it is highly encouraged to make use of Python's virtual environments to avoid conflicts with other version of packages which may already be installed.
 
 ```
-git clone git@github.com:joeycoakleyavi/LM_Ansible.git
+git clone https://github.com/joeycoakleyavi/LM_Ansible.git
 cd LM_Ansible
 python3 -m venv env
 source env/bin/activate
